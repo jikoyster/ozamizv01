@@ -470,10 +470,19 @@ footer{
 }
 
 .po_finalinfo{
-	
-
 	input{
 		text-align: right;
 		font-size: 1.2em;
+	}
+}
+
+.catlist{
+	label{
+		vertical-align: middle;
+	}
+	input[type=checkbox]{
+		vertical-align: middle;
+		margin-right: 5px;
+		margin-bottom: 5px;
 	}
 }

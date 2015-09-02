@@ -33,12 +33,13 @@
 
 	<div class="span6">
 		<div>
-			<label for="Category">Category</label>
-			{field:category}
-		</div>
-
-		
+			<div><label for="categories">Categories</label></div>
+			{categories}
+				<label><input type="radio" value="{category_id}"{selected} name="category[]">{category_name}</label>
+			{/categories}
+		</div>	
 	</div> <!-- 2nd-col -->
+	
 </div> <!-- row -->
 
 <div class="company_price">

@@ -36,7 +36,11 @@
           <td>{product_code}</td>
           <td>{in_stock}</td>
           <td>{critical_level}</td>
-          <td>{category}</td>
+          <td>
+            {categories} 
+              {category_name}
+            {/categories}
+          </td>
           <td class="alignRight">{company_price}</td>
           <td>{less}%</td>
           <td class="alignRight">{net_price}</td>

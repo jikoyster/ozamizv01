@@ -31,10 +31,12 @@
 		
 	</div> <!-- first-col -->
 
-	<div class="span6">
+	<div class="span6 catlist">
 		<div>
-			<label for="Category">Category</label>
-			{field:category}
+			<div><label for="categories">Categories</label></div>
+			{categories}
+				<label><input type="checkbox" value="{category_id}"{checked} name="category[]">{category_name}</label>
+			{/categories}
 		</div>
 
 		
