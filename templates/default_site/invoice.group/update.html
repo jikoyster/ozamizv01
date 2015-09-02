@@ -1,0 +1,100 @@
+{embed='site/header'}
+
+<div class="invoiceCreate">
+	{exp:channel:form channel="invoice" return="{segment_1}" entry_id="{segment_3}"}
+
+		<div class="type">
+			<label for="Type">Type <small style="color: red"><i>IMPORTANT</i></small></label>
+			{field:type}
+		</div><br><br>
+		<div class="invoice_num">
+			<label for="Invoice Num">Invoice #</label>
+			<input type="text" name="invoice_num" value="{invoice_num}">
+			<input type="hidden" name="title" value="{title}">
+		</div>
+		<div class="customer">
+			<label for="Customer">Customer</label>
+			{field:customer}
+		</div>
+		<div class="product_list">	
+			
+			<script type="text/javascript">
+				var array_product_list = new Array(), apl_counter = 0;
+				var amounts = new Array(); 
+			</script>
+
+			<div class="prodinfo">
+				<div>
+					<button class="btn product_list_edit_link"><i class="fa fa-plus-square"></i> Add Product</button>
+					<br class="clear">
+				</div>
+				{field:product_list}
+			</div>
+		</div>
+
+
+		<hr>
+		<div class="tax_rate alignRight inputRight">
+			<label for="Tax">Tax ({instructions:tax_rate})</label>
+			{field:tax_rate}
+		</div>
+		<div class="tax_amount alignRight inputRight">
+			<label for="Tax">Tax Amount</label>
+			{field:tax_amount}
+		</div>
+		<div class="total_amount">
+			<label for="Total">Total Amount</label>
+			{field:total_amount}<br>
+			<button class="compute_total btn">Compute Total</button>
+		</div>
+
+
+		<hr>
+		<p>
+			Sale Status <br>
+			{field:sale_status}
+		</p>
+
+		<p>Date <br> <input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25"></p>
+
+		{status_menu}
+		<p>Status<br>
+			<select name="status">
+				{select_options}
+			</select>
+		</p>
+		{/status_menu}
+
+
+		<input type="submit" value="Submit" class="btn invoiceCreateBtn">
+
+		<div class="pl--test">Here: </div>
+		
+	{/exp:channel:form}
+</div>
+
+
+
+
+	<div class="list--editor">
+		<a href="#" class="le--close"><i class="fa fa-times-circle"></i></a>
+		<div class="le--content">
+			<script>
+				$('.list--editor .le--content').load("{path='invoice/list--editor'}");
+			</script>
+		</div>
+	</div>
+<div class="bg--modal"></div>
+
+<script type="text/javascript" src="{path='invoice/script'}"></script>
+<script type="text/javascript">
+	$(".listrow").each(function(index){
+		onItem = {
+			'product_code' 	: $(this).find('.product_code').text(), 
+			'qty' 			: $(this).find('.qty').text()
+		};
+	});
+</script>
+
+
+{embed='site/footer'}

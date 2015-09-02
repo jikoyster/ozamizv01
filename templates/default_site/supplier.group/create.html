@@ -1,0 +1,53 @@
+{embed="site/header"}
+
+{if logged_in}
+
+<div id="Supplier_Form">
+	{exp:channel:form channel="supplier" return="{segment_1}"}
+	<div class="name">
+		<label for="Name">Supplier Name: </label>
+		<input type="hidden" name="title">
+		{field:name}
+	</div>
+
+	<div class="supplier_address">
+		<label for="Address">Address: </label>
+		{field:supplier_address}
+	</div>
+
+	<div class="supplier_contact">
+		<label for="Contact">Contact: </label>
+		{field:supplier_contact}
+	</div>
+
+
+
+
+
+			<hr>
+
+			<p>Date <br> <input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25"></p>
+			
+			{status_menu}
+			<p>Status<br>
+				<select name="status">
+					{select_options}
+				</select>
+			</p>
+			{/status_menu}
+			<input type="submit" value="Submit" class="btn btn-danger">
+	{/exp:channel:form}
+</div>
+
+<!-- ###################################### SCRIPT AREA -->
+<script>
+	$('#Supplier_Form .name input').blur(function(){
+		$('input[name=title]').val( $(this).val() );
+	});
+</script>
+
+{if:else}
+	{embed='site/not_logged'}
+{/if}
+
+{embed="site/footer"}

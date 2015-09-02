@@ -1,0 +1,52 @@
+{embed="site/header"}
+
+<br><br><br><br><br><br>
+
+{exp:channel:form channel="product" return="news"}
+ <div class="row">
+   <div class="span6">
+      <div>
+    <label for="Product Name">Product Name</label>
+    <input name="title" type="text">
+  </div>
+
+    <div>
+      <label for="Product Code">Product Code</label>
+      {field:product_code}
+    </div>
+
+    <div>
+      <label for="Critical Level">Critical Level</label>
+      {field:critical_level} <br>
+      <small>{instructions:critical_level}</small>
+    </div>
+
+   <p>Date <br> <input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25"></p>
+   
+    {status_menu}
+    <p>Status<br>
+      <select name="status">
+        {select_options}
+      </select>
+    </p>
+    {/status_menu}     
+   </div>
+   <div class="span6">
+     
+     price information
+   </div>
+ </div>
+
+    <br>  
+   <input type="submit" value="Submit">
+{/exp:channel:form}
+
+{exp:channel:entries channel="product" limit="10"}
+    <h2>{title}</h2>
+    product_code <br>
+    {critical_level}
+{/exp:channel:entries}
+
+
+<br><br><br><br><br>
+{embed="site/footer"}

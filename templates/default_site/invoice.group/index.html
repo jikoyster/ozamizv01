@@ -1,0 +1,40 @@
+{embed="site/header"}
+
+{if logged_in}
+<h5><a class="btn btn-new" href="{path='invoice/create'}">Add New Invoice</a></h5>
+{/if}
+
+<div id="Channel_Index">
+  <table border='1' class="tbl_display">
+  <thead>
+    <tr>
+      <th class="alignLeft">Invoice #</th>
+      <th class="alignLeft">Customer</th>
+      <th class="alignRight">Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {exp:channel:entries channel="invoice" paginate="top" limit="20"}
+    
+      {paginate}
+          <p class="channel_pagin">Page {current_page} of {total_pages} | pages {pagination_links}</p>
+      {/paginate}
+    
+    
+    <tr>
+      <td class="alignLeft"><a href="{path='invoice/update/{entry_id}'}">{title}</a></td>
+      <td class="alignLeft">{customer:title}</td>
+      <td class="alignRight">{total_amount}</td>
+    </tr>
+
+    </tbody>
+    
+    {/exp:channel:entries}
+    
+      
+    
+  
+  </table>
+</div>
+
+{embed="site/footer"}

@@ -1,0 +1,149 @@
+{embed="site/header"}
+
+{if logged_in}
+<div id="invoiceCreate" class="invoiceCreate">
+	{exp:channel:form channel="invoice" return="{segment_1}"}
+
+		<div class="type">
+			<label for="Type">Type <small style="color: red"><i>IMPORTANT</i></small></label>
+			{field:type}
+		</div><br><br>
+		<div class="invoice_num">
+			<label for="Invoice Num">Invoice #</label>
+			<input type="text" name="invoice_num">
+			<input type="hidden" name="title">
+		</div>
+		<div class="customer">
+			<label for="Customer">Customer</label>
+			{field:customer}
+		</div>
+		<div class="product_list">	
+			
+			<script type="text/javascript">
+				var array_product_list = new Array(), apl_counter = 0;
+				var amounts = new Array(); 
+			</script>
+
+			<div class="prodinfo">
+				<div>
+					<button class="btn product_list_edit_link"><i class="fa fa-plus-square"></i> Add Product</button>
+					<br class="clear">
+				</div>
+				{field:product_list}
+			</div>
+		</div>
+
+		<div class="alignRight">
+			<hr>
+
+			<div class="tax_rate alignRight inputRight">
+				<label for="Tax">Tax ({instructions:tax_rate})</label>
+				{field:tax_rate}
+			</div>
+			<div class="tax_amount alignRight inputRight">
+				<label for="Tax">Tax Amount</label>
+				{field:tax_amount}
+			</div>
+			<div class="total_amount alignRight inputRight">
+				<label for="Total">Total Amount</label>
+				{field:total_amount}<br>
+				<button class="compute_total btn">Compute Total</button>
+			</div>
+
+
+			<hr>
+			<p class="alignRight">
+				Sale Status
+				{field:sale_status}
+			</p>
+
+			<p class="alignRight">
+				Date 
+				<input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25">
+			</p>
+
+			{status_menu}
+			<p class="alignRight">
+				Status
+				<select name="status">
+					{select_options}
+				</select>
+			</p>
+			{/status_menu}
+
+
+		
+			<input type="submit" value="Submit" class="btn btn-danger invoiceCreateBtn">
+		</div>
+
+		
+	{/exp:channel:form}
+</div>
+
+<div class="test"></div>
+
+{if:else}
+	{embed="site/not_logged"}
+{/if}
+
+
+
+
+
+	<div class="list--editor">
+		<a href="#" class="le--close"><i class="fa fa-times-circle"></i></a>
+		<div class="le--content">
+			<script>
+				$('.list--editor .le--content').load("{path='invoice/list--editor'}");
+			</script>
+		</div>
+	</div>
+<div class="bg--modal"></div>
+
+<script id="invoiceScript">
+	$.getScript("{path='invoice/script'}");
+</script>
+
+<script type="text/javascript">
+	
+	var total_amount = 0;
+
+	$('.WysiHat-editor').ready(function(){
+		listhead = '<br/><div style="'+ style.thead.fontSize + style.thead.borderBottom +'">' +
+						'<b style="'+ style.cellDimBig + style.alignLeft +'">Product Name</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignCenter +'">Product Code</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignCenter +'">Qty</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignRight +'">Price</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignRight +'">Amount</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignCenter +'"> </b>' +
+					'<br style="'+ style.clearRow +'"></div>' +
+					'<div class="listbody"></div>' +
+					'';
+		$('.WysiHat-editor').html(listhead);
+	});
+
+
+	$('input[name=tax_rate]')
+		.click(function(){
+			if($(this).val() == 0){
+				$(this).val("");
+			}
+		})
+		.blur(function(){
+			net_amount 	= total_amount;//parseFloat( ($('input[name=total_amount]').val()).replace(',',	'') );
+			tax_rate 	= $('input[name=tax_rate]').val();
+			tax_amount 	= (net_amount) * ((tax_rate) / 100);
+
+			taxed_total_amount = net_amount + tax_amount;
+
+			console.log( net_amount +":"+ ((tax_rate) / 100) +":"+ tax_amount +":"+ total_amount);
+
+			$('input[name=tax_amount]').val( parseFloat(tax_amount.toFixed(2)).toLocaleString() );
+			set_total_amount( taxed_total_amount );
+		});
+
+	function set_total_amount( taxed_total_amount ){
+		$('input[name=total_amount]').val( parseFloat(taxed_total_amount.toFixed(2)).toLocaleString() );
+	}
+</script>
+{embed="site/footer"}

@@ -1,0 +1,26 @@
+{embed="site/header"}
+
+{if logged_in}
+<h5><a class="btn btn-new" href="{path='warehouse/create'}">Add Warehouse</a></h5>
+{/if}
+
+    <table border='1' class="tbl_display">
+      <thead>
+        <tr class="alignLeft">
+          <th>Name</th>
+          <th>Address</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        {exp:channel:entries channel="warehouse" limit="10"}
+        <tr>
+          <td class="alignLeft"><a href="{path='warehouse/update/{entry_id}'}">{title}</a></td>
+          <td class="alignLeft">{warehouse_address}</td>
+          <td class="alignLeft">{warehouse_contact}</td>
+        </tr>
+        {/exp:channel:entries}
+      </tbody>
+    </table>
+
+{embed="site/footer"}

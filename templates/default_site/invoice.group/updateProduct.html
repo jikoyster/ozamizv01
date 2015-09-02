@@ -1,0 +1,48 @@
+<script type="text/javascript" src="{path='site/jquery-1.11.3.min'}"></script>
+
+<?php 
+ee()->load->library('api');
+ee()->api->instantiate('channel_entries');
+
+
+// foreach()
+	// echo $apl_length;
+
+
+
+// ee()->api_channel_entries->save_entry($data, 3, $entry_id, FALSE);
+// ee()->api_channel_entries->save_entry($data, 3, 23, FALSE);
+ ?>
+<?php $test = $_GET['test']; 
+	$test = json_decode($test, true);
+	
+?>
+<div class="layerContainer"> 
+	<?php foreach($test as $t):
+		$data = array(	//must indicate field id for the custom fields
+			'entry_id'		=> $t['entry_id'],
+			'title'			=> $t['title'],
+			'url_title'		=> $t['url_title'],
+			'field_id_31'	=> $t['product_name'],			//product_name
+			'field_id_4'	=> $t['product_code'],			//product_code
+			'field_id_6'	=> $t['critical_level'],		//critical_level
+			'field_id_7'	=> $t['category'],				//category
+		    'field_id_20' 	=> $t['in_stock'] - $t['qty'],	//in_stock
+
+		    'field_id_8' 	=> $t['company_price'],			//company_price
+		    'field_id_9' 	=> $t['less'],					//less
+		    'field_id_14' 	=> $t['net_price'],				//net_price
+
+		    'field_id_10' 	=> $t['wRate'],					//wholesale_rate
+		    'field_id_11' 	=> $t['wPrice'],				//wholesale_price
+		    'field_id_12' 	=> $t['rRate'],					//retail_rate
+		    'field_id_13' 	=> $t['rPrice'],				//retail_price
+		    'field_id_40' 	=> array(
+		    					'data' => array('' => $t['warehouse'])
+		    					)			//warehouse
+		);
+		ee()->api_channel_entries->save_entry($data, 3, $t['entry_id'], FALSE);
+		print_r($data);
+	?>
+	<?php endforeach; ?>
+</div>

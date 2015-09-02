@@ -1,0 +1,60 @@
+{embed="site/header"}
+<link rel="stylesheet" href="{path='purchase_order/style'}" media="all" />
+
+<div class="create_PO">
+	{exp:channel:form channel="purchase_order" return="{segment_1}" entry_id="{segment_3}"}
+	<div class="po_num">
+		<label for="PO#">PO#</label>
+		<input type="hidden" name="title" value="{title}">
+		<span>{field:po_num}</span>
+	</div>
+
+	<div class="supplier">
+		<label for="Supplier">Supplier</label>
+		{field:supplier}
+	</div>
+
+	<div class="order_list">
+		{field:order_list}
+	</div>
+
+	<input type="submit" value="Submit" class="btn POCreateBtn">
+
+	{/exp:channel:form}
+</div>
+
+<!--###################################### SCRIPT PART BELOW -->
+<script type="text/javascript">
+	$('.po_num input[name="po_num"]').blur(function(){
+		$('.po_num input[name=title]').val( "PO#" + $(this).val() );
+	});
+
+	$(".create_PO form").submit(function(){
+		errorlog = [];
+		error = {
+			po_num 		: (!$('input[name=po_num]').val())? true : false ,
+			supplier 	: (!$('.supplier select').val())? true : false
+		};
+
+		$.each(error, function(key, value){
+			if(value){
+				$('.'+key +' input, .'+key + ' select').addClass('error2');
+				$('body, html').animate({
+					scrollTop: $('body').offset().top
+				});
+				errorlog.push(true);
+			}else{
+				$('.'+key +' input, .'+key + ' select').removeClass('error2');
+				errorlog.push(false);
+			}
+		});
+
+		console.log(errorlog +":log:"+ $.inArray(true, errorlog) );
+		return ($.inArray(true, errorlog) > -1)? false : true ;
+	});
+
+
+	
+</script>
+
+{embed="site/footer"}

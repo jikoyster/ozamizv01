@@ -1,0 +1,29 @@
+{embed="site/header"}
+
+{exp:channel:form channel="purchase_order" return="purchase_order"}
+
+<div>
+	<label for="PO Number">PO#</label>
+	<input type="text" name="title">
+</div>
+
+<div>
+	{field:order_list}
+</div>
+
+		<hr>
+
+		<p>Date <br> <input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25"></p>
+		
+		{status_menu}
+		<p>Status<br>
+			<select name="status">
+				{select_options}
+			</select>
+		</p>
+		{/status_menu}
+		<input type="submit" value="Submit" class="btn">
+
+{/exp:channel:form}
+
+{embed="site/footer"}		

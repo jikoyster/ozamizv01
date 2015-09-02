@@ -1,0 +1,60 @@
+{embed="site/header"}
+    
+    {if logged_in}
+    <h5><a class="btn btn-new" href="{path='product/create'}">Add New Product</a></h5>
+    {/if}
+
+    <div id="Channel_Index">
+      <table border='1' class="tbl_display">
+      <thead>
+        <tr>
+          <th class="alignLeft widthBig">Product Name</th>
+          <th>Product Code</th>
+          <th>In Stock</th>
+          <th>Critical Level</th>
+          <th>Category</th>
+          <th class="alignRight">Company Price</th>
+          <th>Less</th>
+          <th class="alignRight">Net Price</th>
+          <th>Wholesale Rate</th>
+          <th class="alignRight">Wholesale Price</th>
+          <th>Retail Rate</th>
+          <th class="alignRight">Retail Price</th>
+          <th class="alignRight">Warehouse</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+        {exp:channel:entries channel="product" paginate="top" limit="20"}
+        
+          {paginate}
+              <p class="channel_pagin">Page {current_page} of {total_pages} | pages {pagination_links}</p>
+          {/paginate}
+
+        <tr>
+          <td class="alignLeft widthBig fontWeightBold"><a href="{path='product/update/{entry_id}'}">{title}</a></td>
+          <td>{product_code}</td>
+          <td>{in_stock}</td>
+          <td>{critical_level}</td>
+          <td>{category}</td>
+          <td class="alignRight">{company_price}</td>
+          <td>{less}%</td>
+          <td class="alignRight">{net_price}</td>
+          <td>{wholesale_rate}%</td>
+          <td class="alignRight">{wholesale_price}</td>
+          <td>{retail_rate}%</td>
+          <td class="alignRight widthMedium">{retail_price}</td>
+          <td class="alignRight widthMedium">{warehouse:title}</td>
+        </tr>
+        </tbody>
+    
+            
+        {/exp:channel:entries}
+      
+      
+          
+        
+    </table>
+    </div>
+
+{embed="site/footer"}

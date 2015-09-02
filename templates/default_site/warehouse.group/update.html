@@ -1,0 +1,32 @@
+{embed='site/header'}
+
+{exp:channel:form channel="warehouse" return="{segment_1}" entry_id="{segment_3}" }
+	<div>
+		<label for="Warehouse Name">Warehouse Name</label>
+		<input name="title" type="text" value="{title}">
+	</div>
+	<div>
+		<label for="Address">Address</label>
+		{field:warehouse_address}
+	</div>
+	<div>
+		<label for="Contact">Contact<br> <small>{instructions:contact}</small></label>
+		{field:warehouse_contact}
+	</div>
+
+
+	<hr>
+
+<p>Date <br> <input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25"></p>
+
+{status_menu}
+<p>Status<br>
+	<select name="status">
+		{select_options}
+	</select>
+</p>
+{/status_menu}
+<input type="submit" value="Submit" class="btn">
+{/exp:channel:form}
+
+{embed='site/footer'}

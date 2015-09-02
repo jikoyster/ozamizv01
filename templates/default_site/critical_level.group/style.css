@@ -1,0 +1,16 @@
+.critical_level_page h1 {
+  color: #303d3f; }
+  .critical_level_page h1 span {
+    color: red; }
+.critical_level_page label {
+  font-weight: bold; }
+.critical_level_page .product_name {
+  font-weight: bold; }
+.critical_level_page .btn-addToPO {
+  margin: 10px 0;
+  float: right;
+  font-weight: bold; }
+.critical_level_page table tbody tr:hover {
+  cursor: pointer; }
+
+/*# sourceMappingURL=style.css.map */

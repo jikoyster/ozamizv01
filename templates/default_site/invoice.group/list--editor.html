@@ -1,0 +1,20 @@
+<label for="Enter">Enter Product: </label><input type="text" name="search" class="searchinput">
+<div class="clear"></div>
+<div class="search_result"></div>
+
+<script>
+	$('.searchinput').keyup(function(){
+		
+		term = $(this).val();
+		if(term != ''){
+			$.ajax({
+				url: '{path="invoice/search--results"}/'+ term + '/' + type
+			})
+			.done(function(result){
+				$('.search_result').html( result );
+			});
+		}else{
+			$('.search_result').html('');
+		}
+	});
+</script>

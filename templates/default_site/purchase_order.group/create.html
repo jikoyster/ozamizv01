@@ -1,0 +1,245 @@
+{embed="site/header"}
+
+{if logged_in}
+
+<link rel="stylesheet" href="{path='purchase_order/style'}" media="all" />
+<script id="invoiceScript">
+	$.getScript("{path='purchase_order/script'}");
+</script>
+
+<div class="create_PO">
+	{exp:channel:form channel="purchase_order" return="{segment_1}"}
+	<div class="po_num">
+		<label for="PO#">PO#</label>
+		<input type="hidden" name="title">
+		<span>{field:po_num}</span>
+	</div>
+
+	<div class="supplier">
+		<label for="Supplier">Supplier</label>
+		{field:supplier}
+	</div>
+
+	<script type="text/javascript">
+		var array_product_list = new Array(), apl_counter = 0;
+		var amounts = new Array(); 
+	</script>
+
+	<div class="order_list">
+		<div>
+			<button class="btn product_list_edit_link"><i class="fa fa-plus-square"></i> Add Product</button>
+			<br class="clear">
+		</div>
+		{field:order_list}
+	</div>
+
+	<div class="alignRight po_finalinfo">
+		<div class="po_subtotal">
+			<label for="Subtotal">Subtotal</label>
+			{field:po_subtotal}
+		</div>
+		<div class="po_tax_rate">
+			<label for="Tax Rate">Tax Rate ({instructions:po_tax_rate})</label>
+			{field:po_tax_rate}
+		</div>
+		<div class="po_tax_amount">
+			<label for="Tax Amount">Tax Amount</label>
+			{field:po_tax_amount}
+		</div>
+		<div class="po_total_amount alignRight">
+			<label for="Total Amount">Total Amount</label>
+			{field:po_total_amount}
+		</div>
+	</div>
+
+	<div class="alignRight">
+		<input type="submit" value="Submit" class="btn btn-danger POCreateBtn">
+	</div>
+
+	{/exp:channel:form}
+</div>
+
+<!--###################################### SCRIPT PART BELOW -->
+<div class="list--editor">
+		<a href="#" class="le--close"><i class="fa fa-times-circle"></i></a>
+		<div class="le--content">
+			<script>
+				$('.list--editor .le--content').load("{path='purchase_order/list--editor'}");
+			</script>
+		</div>
+	</div>
+<div class="bg--modal"></div>
+
+
+
+<script type="text/javascript">
+	$('.po_num input[name="po_num"]').blur(function(){
+		$('.po_num input[name=title]').val( "PO#" + $(this).val() );
+	});
+
+	$(".create_PO form").submit(function(){
+		errorlog = [];
+		error = {
+			po_num 		: (!$('input[name=po_num]').val())? true : false ,
+			supplier 	: (!$('.supplier select').val())? true : false
+		};
+
+		$.each(error, function(key, value){
+			if(value){
+				$('.'+key +' input, .'+key + ' select').addClass('error2');
+				$('body, html').animate({
+					scrollTop: $('body').offset().top
+				});
+				errorlog.push(true);
+			}else{
+				$('.'+key +' input, .'+key + ' select').removeClass('error2');
+				errorlog.push(false);
+			}
+		});
+
+		console.log(errorlog +":log:"+ $.inArray(true, errorlog) );
+		return ($.inArray(true, errorlog) > -1)? false : true ;
+	});
+
+
+	<?php if( isset($_POST['final_critical_products']) ){
+			echo 'var test = '. json_encode($_POST['final_critical_products']) .';';
+		}else{
+			echo 'var test = null; ';
+		} ?>
+	$('.WysiHat-editor').ready(function(){
+		obj = $.parseJSON(test);
+
+		PO_head = '<br/><div style="'+ style.thead.fontSize + style.thead.borderBottom +'">' +
+						'<b style="'+ style.cellDimBig + style.alignLeft +'">Product Name</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignCenter +'">Qty</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignRight +'">Price</b>' +
+						'<b style="'+ style.cellDimBig + style.alignRight +'">Amount</b>' +
+						'<b style="'+ style.cellDimSmall + style.alignCenter +'"> </b>' +
+					'<br style="'+ style.clearRow +'"></div>' +
+					'<div class="listbody"></div>' +
+					'';
+			$('.WysiHat-editor').html( PO_head );
+
+		if(obj != null){
+
+			obj.forEach(function(elem){
+				// PO_row = '	<tr class="listrow">' +
+				// 		'		<td class="product_name" align="left" style="'+ style.cellpadding + style.tbody.borderBottom +'">'+ elem['product_name'] +'</td>' +
+				// 		'		<td class="qty" align="center" style="'+ style.tbody.borderBottom +'">-</td>' +
+				// 		'		<td class="remove_from_list" style="'+ style.cellpadding + style.tbody.borderBottom +'"><a href="#remove_from_list" onclick="test(this)"><i class="fa fa-times"></i></a></td>' +
+				// 		'	</tr>';
+
+				$('.WysiHat-editor > .listbody').append('' +
+					'<div class="listrow" style="'+ style.tbody.borderBottom + style.tbody.fontSize +'">'+
+						'<b style="'+ style.cellDimBig + style.alignLeft +'">'+ elem['product_name'] +'</b> ' +
+						'<b class="qty" style="'+ style.cellDimSmall + style.alignCenter + style.fontWeight500 +'"><input type="text" name="qty" style="width: 50px; '+ style.alignCenter +'"></b> ' +
+						'<b class="company_price" style="'+ style.cellDimSmall + style.alignRight + style.fontWeight500 +'">'+ elem['company_price'] +'</b> ' +
+						'<b class="amount" style="'+ style.cellDimBig + style.alignRight + style.fontWeight500 +'">0</b> ' +
+						'<b class="remove_from_list" style="'+ style.cellDimSmall + style.alignCenter +'"><a href="#remove_from_list" onclick="updatePO(this)"><i class="fa fa-times"></i></a></b>' +
+					'<br style="'+ style.clearRow +'" /></div>' +
+					'');
+
+				// $('.WysiHat-editor .PO_body').append( PO_row );
+
+				// $('.WysiHat-editor').html( prevContent + JSON.stringify(elem) );
+			});
+		}
+
+		$(".create_PO .listrow .qty input[name=qty]").bind('blur', function(){
+			index	= $(this).closest('.listrow').index();
+			qty 	= $(this).val();
+			price 	= $(this).closest('.listrow').find('.company_price').text();
+
+			amount = qty * price;
+			amounts[index] = amount;
+
+			$(this).closest('.listrow').find('.amount').text( addCommas(amount.toFixed(2)) );
+			compute_subtotal(amounts);
+
+			// row = {
+			// 	listrow	: index,
+			// 	rowQty	: qty,
+			// 	rowPrice: price,
+			// 	rowAmount: amount
+			// };
+
+			// console.log("Amounts: "+amounts);
+		});
+		// .click(function(){
+		// 	qty = $(this).html();
+		// 	if(qty == "-"){	
+		// 		$(this).html("");
+		// 	}else if(qty == ''){
+		// 		$(this).html("-");
+		// 	}
+		// })
+		// .blur(function(){
+		// 	alert("ola");
+		// 	qty = $(this).html();
+		// 	if(qty == ' '){
+		// 		$(this).html("-");
+		// 	}
+		// });
+		
+	});
+
+	function updatePO(x){
+		$(x).closest('.listrow').hide('slow', function(){ $(this).remove(); });
+
+		index = $(x).closest('.listrow').index();
+		amounts.splice(index, 1);
+		compute_total_amount(amounts);
+		console.log(amounts);
+	}
+	function compute_subtotal(arr){
+		arrLen = arr.length;
+		total_amount = 0;
+		for (var i = 0; i < arrLen; i++) {
+			if(arr[i]){
+				// console.log(i +":"+ arr[i]);
+				total_amount += parseFloat(arr[i]);
+			}
+			
+		}
+		$('input[name=po_subtotal]').val( addCommas(total_amount.toFixed(2)) );
+	}
+	$('input[name=po_tax_rate]').bind('click', function(){
+		tax_rate = $(this).val();
+		if(tax_rate == 0){
+			$(this).val("");
+		}
+	});
+	$('input[name=po_tax_rate]').bind('blur', function(){
+		tax_rate = $(this).val();
+		if(tax_rate == ''){
+			$(this).val(0);
+		}
+
+		$('input[name=po_tax_amount]').val( get_tax_amount().toFixed(2) );
+
+		$('input[name=po_total_amount]').val( addCommas(get_total_amount().toFixed(2)) );
+	});
+	
+	function get_subtotal(){
+		return ($('input[name=po_subtotal]').val()).replace(",", "");
+	}
+	function get_tax(){
+		return $('.po_tax_rate input').val()/100;
+	}
+	function get_tax_amount(){
+		subtotal = get_subtotal();
+		// console.log(subtotal +':'+ get_tax() +'  =  '+ ( (subtotal.replace(",", "")) * get_tax() ));
+		return subtotal * get_tax();
+	}
+	function get_total_amount(){
+		return ( parseFloat(get_subtotal()) + parseFloat(get_tax_amount()) );
+	}
+</script>
+
+
+{if:else}
+	{embed='site/not_logged'}
+{/if}
+
+{embed="site/footer"}

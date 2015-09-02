@@ -1,0 +1,342 @@
+body.off-alert header {
+  margin-top: 0; }
+
+body.on-alert header {
+  margin-top: 60px; }
+
+.container {
+  width: 1024px; }
+
+.error {
+  display: block;
+  border: 1px solid red;
+  padding: 8px;
+  margin-bottom: 10px; }
+
+.error2 {
+  background-color: #faa !important; }
+
+.clear {
+  clear: both; }
+
+a:active, a:focus {
+  text-decoration: none;
+  color: #303d3f; }
+
+.btn {
+  margin-bottom: 10px; }
+
+small {
+  font-size: .7em;
+  font-style: italic; }
+
+input[type=radio] {
+  margin-top: 0; }
+
+.ta--right, .alignRight, .inputRight input {
+  text-align: right !important; }
+
+.ta--left, .alignLeft, .inputLeft input {
+  text-align: left !important; }
+
+.widthBig {
+  width: 300px;
+  min-width: 300px; }
+
+.widthMedium {
+  width: 150px;
+  min-width: 150px; }
+
+.widthSmall {
+  width: 100px;
+  min-width: 100px; }
+
+.fontWeightBold {
+  font-weight: bold; }
+
+.btn-new {
+  margin-bottom: 10px;
+  float: right; }
+  .btn-new a {
+    color: #122736; }
+  .btn-new a:hover {
+    text-decoration: none; }
+
+label {
+  display: inline-block;
+  width: 150px;
+  vertical-align: top; }
+
+table.tbl_display {
+  clear: both;
+  width: 100%;
+  overflow: auto;
+  background: white;
+  border-color: #efefef; }
+  table.tbl_display input[type=checkbox] {
+    float: none;
+    margin: 0; }
+  table.tbl_display thead th {
+    padding: 10px;
+    border-color: #efefef; }
+  table.tbl_display thead th.checkbox {
+    width: 30px; }
+  table.tbl_display thead th.product_name {
+    width: 180px; }
+  table.tbl_display tbody tr td {
+    min-width: 100px;
+    padding: 5px;
+    text-align: center;
+    border-color: #efefef; }
+  table.tbl_display tbody tr td.checkbox {
+    width: 30px; }
+  table.tbl_display tbody tr td.product_name {
+    text-align: left;
+    width: 400px; }
+  table.tbl_display tbody tr:hover {
+    background: #efefef; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font: 1em 'Verdana';
+  background: #efefef url(custom/img/white_carbonfiber.png) repeat center; }
+
+.access_error {
+  font-size: 1.5em;
+  color: #f00;
+  text-shadow: 1px 1px 1px #666;
+  text-align: center; }
+
+.alertmsg {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+  background: red;
+  padding: 10px;
+  color: yellow;
+  font-weight: bold;
+  animation: alertmsg 3s infinite; }
+  .alertmsg .fa-exclamation-triangle {
+    color: yellow; }
+
+@keyframes alertmsg {
+  0% {
+    background: #f00; }
+  50% {
+    background: #600; }
+  100% {
+    background: #f00; } }
+header {
+  background: #303d3f url(custom/img/green-fibers.png) repeat center;
+  margin-bottom: 20px;
+  padding: 10px;
+  color: white; }
+  header a {
+    color: white; }
+  header a:hover {
+    color: white;
+    text-decoration: none; }
+  header #sitelogo {
+    font-size: 1.5em;
+    font-weight: bold; }
+    header #sitelogo a:hover {
+      color: #ccc;
+      text-decoration: none; }
+  header nav {
+    margin: 0;
+    padding: 10px; }
+    header nav ul {
+      margin: 0;
+      padding: 0;
+      transition: all 500ms; }
+      header nav ul li {
+        display: inline-block;
+        vertical-align: top;
+        position: relative; }
+        header nav ul li a {
+          text-transform: uppercase;
+          background: #122736;
+          padding: 5px;
+          border-radius: 5px; }
+        header nav ul li ul {
+          position: absolute;
+          top: 24px;
+          visibility: hidden;
+          opacity: 0; }
+          header nav ul li ul li a {
+            display: block;
+            width: 150px;
+            background: #344A58;
+            border-radius: 0; }
+          header nav ul li ul li ul {
+            top: 0;
+            left: 160px; }
+          header nav ul li ul li:hover > a {
+            background: #122736; }
+      header nav ul li:hover a {
+        background: #344A58; }
+      header nav ul li:hover > ul {
+        visibility: visible;
+        opacity: 1; }
+
+footer {
+  margin: 50px 0 10px; }
+  footer .footer--text {
+    text-align: center; }
+
+.ui-datepicker-header,
+.ui-datepicker-calendar {
+  background: white;
+  padding: 10px;
+  display: block;
+  border: 1px solid #303d3f; }
+
+.ui-datepicker-header {
+  border-width: 1px 1px 0 1px; }
+
+.ui-datepicker-calendar {
+  border-width: 0 1px 1px 1px; }
+
+.ui-datepicker-prev {
+  float: left; }
+
+.ui-datepicker-next {
+  float: right; }
+
+.ui-datepicker-prev, .ui-datepicker-next {
+  font-size: 11px; }
+
+.ui-datepicker-title {
+  text-align: center; }
+
+.ui-state-highlight {
+  background: #ccc;
+  padding: 3px;
+  border-radius: 5px;
+  color: white; }
+
+.del_cell {
+  text-align: center; }
+
+.product_list_edit_link {
+  float: right;
+  display: block;
+  text-align: center;
+  font-size: 1.2em; }
+
+.bg--modal, .list--editor {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 300ms; }
+
+.bg--modal.on, .list--editor.on {
+  visibility: visible;
+  opacity: 1; }
+
+.bg--modal.on {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 990;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%; }
+
+.list--editor {
+  position: fixed;
+  right: -1000px;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 0 5px #000;
+  width: 70%;
+  height: 500px;
+  padding: 10px;
+  background: white;
+  display: block;
+  overflow: auto; }
+  .list--editor a.le--close {
+    float: right;
+    font-size: 2em; }
+
+.list--editor.on {
+  right: 0px; }
+
+.search_result {
+  clear: both; }
+  .search_result table {
+    background: #efefef; }
+    .search_result table thead th {
+      border: 1px solid #303d3f; }
+    .search_result table tbody tr td {
+      border: 1px solid #303d3f;
+      width: 80px; }
+      .search_result table tbody tr td input {
+        width: 50px;
+        text-align: center; }
+    .search_result table tbody tr:hover, .search_result table tbody tr.product_selected {
+      background: white;
+      cursor: pointer; }
+
+.WysiHat-editor {
+  clear: both;
+  font-family: Verdana; }
+  .WysiHat-editor .product_name {
+    width: 300px !important;
+    text-align: left !important; }
+  .WysiHat-editor .price, .WysiHat-editor .amount {
+    text-align: right !important; }
+  .WysiHat-editor .listhead {
+    font-weight: bold;
+    font-size: 1.2em;
+    border-bottom: 5px solid #efefef; }
+  .WysiHat-editor .listbody {
+    font-size: 1.2em;
+    font-weight: normal; }
+    .WysiHat-editor .listbody .listrow .remove_from_list a {
+      cursor: pointer; }
+    .WysiHat-editor .listbody .listrow .remove_from_list a:hover {
+      color: #344A58 !important; }
+    .WysiHat-editor .listbody .listrow:after {
+      clear: both; }
+
+.total_amount {
+  text-align: right; }
+  .total_amount label {
+    vertical-align: middle; }
+  .total_amount input {
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold; }
+
+.btn-finalize {
+  text-align: right;
+  margin-bottom: 10px; }
+
+.final_product_list textarea {
+  width: 100% !important; }
+
+#Channel_Index {
+  width: 100%;
+  padding: 10px 0;
+  background: rgba(0, 0, 0, 0.4);
+  overflow: auto;
+  border: 1px solid #efefef; }
+
+.channel_pagin {
+  background: white;
+  font-size: .9em;
+  padding: 8px; }
+  .channel_pagin a, .channel_pagin strong {
+    padding-right: 10px; }
+
+.WysiHat-container {
+  width: 100% !important;
+  margin-bottom: 10px; }
+
+.po_finalinfo input {
+  text-align: right;
+  font-size: 1.2em; }
+
+/*# sourceMappingURL=style.css.map */

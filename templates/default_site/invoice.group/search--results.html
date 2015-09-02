@@ -1,0 +1,171 @@
+	<div class="search_result">
+	<table class="tbl_display">
+		<thead>
+			<th>Product Name</th>
+			<th>Product Code</th>
+			<th>In Stock</th>
+			<th>Qty</th>
+			<th class="price">
+				{if segment_4 == 'Wholesale'}
+					Wholesale Price
+				{if:else}
+					Retail Price
+				{/if}
+			</th>
+			<th>Amount</th>
+			<th> </th>
+		</thead>
+	<tbody>
+		{exp:channel:entries channel="product" search:product_name="{segment_3}"}
+			<tr>
+				<td class="product_name">
+					<input type="hidden" name="entry_id" value="{entry_id}">
+					<input type="hidden" name="url_title" value="{url_title}">
+					<input type="hidden" name="category" value="{category}"> 
+					<span>{product_name}</span>
+				</td>
+				<td class="product_code">{product_code}</td>
+				<td class="in_stock">{in_stock}</td>
+				<td class="qty"><input type="text" name="qty"></td>
+				 
+				{if segment_4 == 'Wholesale'}
+					<td class="wholesale_price price">
+						<span>{wholesale_price}</span>
+					</td>
+				{if:elseif segment_4 == 'Retail'}
+					<td class="retail_price price">
+						<span>{retail_price}</span>
+					</td>
+				{if:else}
+					<td>---</td>
+				{/if}
+				
+				<td class="amount"> <span></span> </td>
+				<td>
+					<a class="btn add-button btn-{entry_id}" href="#AddProductToList">
+						<i class="fa fa-plus-square"></i>
+					</a>
+
+					<input type="hidden" name="wholesale_rate" value="{wholesale_rate}">
+					<input type="hidden" name="wholesale_price" value="{wholesale_price}">
+					<input type="hidden" name="retail_rate" value="{retail_rate}">
+					<input type="hidden" name="retail_price" value="{retail_price}">
+					<input type="hidden" name="critical_level" value="{critical_level}">
+					<input type="hidden" name="category" value="{category}">
+					<input type="hidden" name="company_price" value="{company_price}">
+					<input type="hidden" name="less" value="{less}">
+					<input type="hidden" name="net_price" value="{net_price}">
+					<input type="hidden" name="warehouse" value="{warehouse:entry_id}">
+				</td>
+			</tr>
+		{/exp:channel:entries}
+	</tbody>
+	</table>
+</div>
+
+<!-- 
+// BELOW IS THE SCRIPT PART ::: DO NOT ALTER
+ -->
+
+<script type="text/javascript">
+	//on search: input qty of the item to display amount (price * qty)
+	$('.search_result .qty input').blur(function(){
+		in_stockQty = $(this).closest('tr').find('.in_stock').html();
+		qty = $(this).val();
+			console.log( qty +":"+ in_stockQty);
+
+		if( parseInt(qty) > parseInt(in_stockQty) ){
+			alert( "You have insufficient stocks for this product." );
+		}else{
+
+			price = $(this).closest('tr').find('.price span').text();
+			
+			amount = price*qty;
+				amount = amount.toFixed(2);
+			$(this).closest('tr').find('.amount span').text( addCommas(amount) );
+		}
+	});
+
+	//SEARCH RESULT
+	var list_price;
+	$('.add-button').click(function(e){
+		e.preventDefault();
+
+		entry_id		= $(this).closest('tr').find('input[name=entry_id]').val();
+		title			= $(this).closest('tr').find('.product_name span').text();
+		url_title		= $(this).closest('tr').find('input[name=url_title]').val();
+
+		product_name 	= $(this).closest('tr').find('.product_name span').text();
+		product_code	= $(this).closest('tr').find('.product_code').text();
+		qty				= $(this).closest('tr').find('.qty input').val();
+
+		critical_level	= $(this).closest('tr').find('input[name=critical_level]').val();
+		category		= $(this).closest('tr').find('input[name=category]').val();
+
+		company_price	= $(this).closest('tr').find('input[name=company_price]').val();
+		less			= $(this).closest('tr').find('input[name=less]').val();
+		net_price		= $(this).closest('tr').find('input[name=net_price]').val();
+		in_stock		= $(this).closest('tr').find('.in_stock').html();
+		
+		wRate 			= $(this).closest('tr').find('input[name=wholesale_rate]').val();
+		wPrice 			= $(this).closest('tr').find('input[name=wholesale_price]').val();
+		rRate 			= $(this).closest('tr').find('input[name=retail_rate]').val();
+		rPrice 			= $(this).closest('tr').find('input[name=retail_price]').val();
+
+		list_price 		= $(this).closest('tr').find('.price span').text();
+		amount 			= $(this).closest('tr').find('.amount span').text();
+		warehouse		= $(this).closest('tr').find('input[name=warehouse]').val();
+
+		product = {
+			'entry_id'		: entry_id,
+			'title'			: title,
+			'url_title'		: url_title,
+			'product_name' 	: product_name,
+			'product_code' 	: product_code,
+			'qty'			: qty,
+			'critical_level': critical_level,
+			'category'		: category, 
+			'company_price'	: company_price,
+			'less'			: less,
+			'net_price'		: net_price,
+			'in_stock'		: in_stock,
+			'wRate'			: wRate,
+			'wPrice'		: wPrice,
+			'rRate'			: rRate,
+			'rPrice'		: rPrice,
+			'amount'		: parseFloat(amount.replace(',', '')),
+			'warehouse'		: warehouse
+		};
+
+		array_product_list.push( product );
+		
+		$('.WysiHat-editor > .listbody').append('' +
+			'<div class="listrow" style="'+ style.tbody.borderBottom + style.tbody.fontSize +'">'+
+				'<b style="'+ style.cellDimBig + style.alignLeft +'">'+ product_name +'</b> ' +
+				'<b style="'+ style.cellDimSmall + style.alignCenter + style.fontWeight500 +'">'+ product_code +'</b> ' +
+				'<b style="'+ style.cellDimSmall + style.alignCenter + style.fontWeight500 +'">'+ qty +'</b> ' +
+				'<b style="'+ style.cellDimSmall + style.alignRight + style.fontWeight500 +'">'+ list_price +'</b> ' +
+				'<b style="'+ style.cellDimSmall + style.alignRight + style.fontWeight500 +'">'+ amount +'</b> ' +
+				'<b class="remove_from_list" style="'+ style.cellDimSmall + style.alignCenter +'"><a href="#remove_from_list" onclick="test(this)"><i class="fa fa-times"></i></a></b>' +
+			'<br style="'+ style.clearRow +'" /></div>' +
+			'');
+
+		$('.compute_total').trigger('click');
+		$('.le--close').trigger('click');
+	});
+
+	
+
+	function addCommas(nStr)
+	{
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	}
+</script>

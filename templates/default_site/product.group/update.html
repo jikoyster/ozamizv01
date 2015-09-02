@@ -1,0 +1,103 @@
+{embed='site/header'}
+
+{exp:channel:form channel="product" return="{segment_1}" entry_id="{segment_3}" }
+	<!-- {embed:use_entry_id="{segment_3}"} -->
+    <!-- {embed="product" use_entry_id="{segment_4}"} -->
+	<div class="row">
+	<div class="span6">
+		<div>
+			<label for="Product Name">Product Name</label>
+			<input name="title" type="text" value="{title}">
+			<input name="product_name" type="hidden" value="{title}">
+		</div>
+
+		<div>
+			<label for="Product Code">Product Code</label>
+			{field:product_code}
+		</div>
+
+		<div>
+			<label for="In Stock">In Stock</label>
+			{field:in_stock}
+		</div>
+
+		<div>
+			<label for="Critical Level">Critical Level</label>
+			{field:critical_level} <br>
+			<small>{instructions:critical_level}</small>
+			<br><br><br>	
+		</div>
+
+		
+	</div> <!-- first-col -->
+
+	<div class="span6">
+		<div>
+			<label for="Category">Category</label>
+			{field:category}
+		</div>
+
+		
+	</div> <!-- 2nd-col -->
+</div> <!-- row -->
+
+<div class="company_price">
+	<label for="Company Price">Company Price</label>
+	{field:company_price}
+</div>
+
+<div class="row">
+	<div class="span6">
+		<div class="less">
+			<label for="Less">Less{instructions:less}</label>
+			{field:less}
+		</div>
+		<div class="wRate">
+			<label for="Wholesale Rate">Wholesale Rate{instructions:wholesale_rate}</label>
+			{field:wholesale_rate}
+		</div>
+		<div class="rRate">
+			<label for="Retail Rate">Retail Rate{instructions:retail_rate}</label>
+			{field:retail_rate}
+		</div>
+	</div>
+	<div class="span6">
+		<div class="net_price">
+			<label for="Net Price">Net Price</label>
+			{field:net_price}
+		</div>
+		<div class="wPrice">
+			<label for="Wholesale Price">Wholesale Price</label>
+			{field:wholesale_price}
+		</div>
+		<div class="rPrice">
+			<label for="Retail Price">Retail Price</label>
+			{field:retail_price}
+		</div>
+	</div>
+</div>
+
+
+
+		<hr>
+
+		<p>
+			<label for="Warehouse">Warehouse</label><br>
+			{field:warehouse}
+		</p>
+
+		<p>Date <br> <input type="text" name="entry_date" value="{entry_date}" maxlength="23" size="25"></p>
+		
+		{status_menu}
+		<p>Status<br>
+			<select name="status">
+				{select_options}
+			</select>
+		</p>
+		{/status_menu}
+
+
+    <button id="form_submit" class="btn" type="submit">Submit</button>
+{/exp:channel:form}
+<script type="text/javascript" src={path='product/script'}></script>
+{embed='site/footer'}
